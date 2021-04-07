@@ -1,8 +1,18 @@
-const { Collection, Client, Discord } = require('discord.js')
+const { Collection, Client, MessageEmbed } = require('discord.js')
 const fs = require('fs')
+const Levels = require('discord-xp')
 const client = new Client({
-    disableEveryone: true
+    ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS'] },
+    disableMentions: 'everyone',
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER']
 })
+const mongo = require('mongoose')
+mongo.connect("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/test", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(console.log('Connected to mongodb!'))
+
+Levels.setURL("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/test")
 
 const config = require('./config.json');
 const token = config.token
@@ -13,32 +23,6 @@ client.aliases = new Collection();
 client.categories = fs.readdirSync("./commands/");
 ["command"].forEach(handler => {
     require(`./handlers/${handler}`)(client);
-}); 
-
-client.on('message', async message =>{
-    if(message.author.bot) return;
-    if(!message.content.startsWith(prefix)) return;
-    if(!message.guild) return;
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const cmd = args.shift().toLowerCase();
-    if(cmd.length == 0 ) return;
-    let command = client.commands.get(cmd)
-    if(!command) command = client.commands.get(client.aliases.get(cmd));
-    if (command) {
-        if(command.cooldown) {
-            if(Timeout.has(`${command.name}${message.author.id}`)) return message.channel.send(`You are on a \`${ms(Timeout.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` cooldown.`)
-            command.run(client, message, args)
-            Timeout.set(`${command.name}${message.author.id}`, Date.now() + command.cooldown)
-            setTimeout(() => {
-                Timeout.delete(`${command.name}${message.author.id}`)
-            }, command.cooldown)
-        } else command.run(client, message, args);
-    }
-});
-
-client.on('ready', () => {
-    client.user.setActivity(`${prefix}help`)
-    console.log(`${client.user.username} ✅`)
 });
 
 client.login(token)
