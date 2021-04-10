@@ -17,7 +17,7 @@ module.exports = {
         const member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         if (!member) return message.channel.send('Member not found, please mention the member or put their ID!')
 
-        const role = message.guild.roles.cache.find(r => r.namee === 'muted')
+        const role = message.guild.roles.cache.find(r => r.name === 'muted')
         if (!role) {
             try {
                 message.channel.send('Muted role not found, creating muted role!')

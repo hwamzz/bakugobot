@@ -50,22 +50,10 @@ module.exports = {
 	    ctx.closePath();
 	    ctx.clip();
 
-        const percentage = Math.floor((currentXp / xpToNext) * 100)
-        const roundedPercent = Math.round(percentage)
-
-        // let i;
-        // for(i = 0; i < roundedPercent; i++)  {
-        //     ctx.beginPath()
-        //     ctx.lineWidth = 14
-        //     ctx.strokeStyle = '#0000FF'
-        //     ctx.fillStyle = '#00FF00'
-        //     ctx.arc(203 + (i * 4.32), 190, 8, 0, Math.PI * 2, true)
-        //     ctx.stroke()
-        //     ctx.fill()
-        // }
-
-        // const progressbar = bar(xpToNext, currentXp)
-        // ctx.drawImage(progressbar, 60, 60, 300, 300)
+        const progressbar = await bar(xpToNext, currentXp)
+        ctx.font = `30px sans-serif`;
+        ctx.fillStyle = 'black';
+        ctx.fillText(progressbar, 340, 141)
 
         const avatar = await canvas.loadImage(target.user.displayAvatarURL({ format: 'jpg' }))
         ctx.drawImage(avatar, 25, 25, 200, 200)
