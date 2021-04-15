@@ -1,5 +1,6 @@
 const { Collection, Client, MessageEmbed } = require('discord.js')
 const fs = require('fs')
+const { GiveawaysManager } = require('discord-giveaways')
 const Levels = require('discord-xp')
 const client = new Client({
     ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS'] },
@@ -25,4 +26,17 @@ client.categories = fs.readdirSync("./commands/");
     require(`./handlers/${handler}`)(client);
 });
 
+const manager = new GiveawaysManager(client, {
+    storage: './giveaways.json',
+    updateCountdownEvery: 10000,
+    endedGiveawaysLifetime: 60000 * 60 * 24 * 7,
+    hasGuildMembersIntent: true,
+    default: {
+        botsCanWin: false,
+        embedColor: '#FF0000',
+        reaction: '🎉'
+    }
+})
+
+client.giveawaysManager = manager;
 client.login(token)

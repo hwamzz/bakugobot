@@ -9,7 +9,7 @@ client.on('guildMemberAdd', async(member) => {
     if (!data) return;
     const user = data.Users.findIndex((prop) => prop === member.id);
     if (user === -1) return;
-    const role = member.guild.roles.cache.find(r => r.name === 'muted')
+    const role = member.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted')
     member.roles.add(role.id)
 
     const role2 = member.guild.roles.cache.find(r => r.name === 'Member')
@@ -17,13 +17,14 @@ client.on('guildMemberAdd', async(member) => {
 
     welcomeSchema.findOne({ Guild: member.guild.id }, async(e, data) => {
         if (!data) return;
-            const user2 = member.user;
+
+            const user = member.user;
             const image = await new Canvas.Welcome()
-                .setUsername(user2.username)
-                .setDiscriminator(user2.discriminator)
+                .setUsername(user.username)
+                .setDiscriminator(user.discriminator)
                 .setMemberCount(member.guild.memberCount)
                 .setGuildName(member.guild.name)
-                .setAvatar(user2.displayAvatarURL({ format: 'png' }))
+                .setAvatar(user.displayAvatarURL({ format: 'png' }))
                 .setColor("border", "#8015EA")
                 .setColor("username-box", "#8015EA")
                 .setColor("discriminator-box", "#8015EA")
@@ -36,5 +37,11 @@ client.on('guildMemberAdd', async(member) => {
             const attachment = new MessageAttachment((await image).toBuffer(), "goodbye-image.png");
             const channel = member.guild.channels.cache.find(ch => ch.name == 'welcome');
             channel.send(attachment);
+    })
+
+    member.guild.fetchInvites().then(gInvites => {
+        const invite = gInvites.find((inv) => invites.get(inv.code).uses < inv.uses)
+        
+        channel.send(`${member} invited by ${invite.inviter}`)
     })
 })

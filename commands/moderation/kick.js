@@ -14,7 +14,7 @@ module.exports = {
         if (!message.member.hasPermission(['KICK_MEMBERS'])) return message.channel.send('You do not have permission to kick users!')
         if (!message.guild.me.hasPermission(['KICK_MEMBERS'])) return message.channel.send('I do not have permission to kick users!')
         const target = message.mentions.members.first();
-        const reason = args.slice(1).join(" ")
+        let reason = args.slice(1).join(" ")
         if (!target.kickable) return message.channel.send('I cannot kick this user!')
         if (!reason) reason = 'Unspecified';
 

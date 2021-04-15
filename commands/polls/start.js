@@ -23,9 +23,9 @@ module.exports = {
             const pollEmbed = new MessageEmbed()
                 .setTitle('New Poll')
                 .setColor('#0000FF')
-                .setAuthor(`${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setDescription(`${pollQuery}`)
                 .setTimestamp()
+                .setFooter(`Created by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
 
             const channel = message.guild.channels.cache.get(data.Channel)
             const msg = await channel.send(pollEmbed)

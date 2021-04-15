@@ -17,8 +17,12 @@ module.exports = {
 
         Schema.findOne({ Guild: message.guild.id }, async(err, data) => {
             if (data) {
-                data.Role.push(role.id);
-                data.save();
+                Schema.findOneAndDelete({ Guild: message.guild.id })
+                data.save()
+                data = new Schema({
+                    Guild: message.guild.id,
+                    Role: role.id
+                }).save()
             } else {
                 new Schema({
                     Guild: message.guild.id,
