@@ -4,13 +4,13 @@ const { GiveawaysManager } = require('discord-giveaways')
 const Levels = require('discord-xp')
 const client = new Client({
     ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS'] },
-    disableMentions: 'everyone',
     partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER']
 })
 const mongo = require('mongoose')
 mongo.connect("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/test", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: true
 }).then(console.log('Connected to mongodb!'))
 
 Levels.setURL("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/test")

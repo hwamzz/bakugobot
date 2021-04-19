@@ -7,8 +7,9 @@ const { promisify } = require('util')
 const wait = promisify(setTimeout)
 
 let invites;
+let id = '582318888407269404';
 
-client.on('ready', () => {
+client.on('ready', async() => {
     client.user.setActivity(`${prefix}help`)
     console.log(`${client.user.username} ✅`)
 
