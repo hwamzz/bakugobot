@@ -6,4 +6,4 @@ const Schema = new mongo.Schema({
     Bonus: String,
 })
 
-module.exports = mongo.model('bonus-invites', Schema)
+module.exports = mongo.model('invites', Schema)

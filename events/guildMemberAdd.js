@@ -42,6 +42,6 @@ client.on('guildMemberAdd', async(member) => {
     member.guild.fetchInvites().then(gInvites => {
         const invite = gInvites.find((inv) => invites.get(inv.code).uses < inv.uses)
         
-        channel.send(`${member} invited by ${invite.inviter}`)
+        
     })
 })
