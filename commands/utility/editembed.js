@@ -12,14 +12,13 @@ module.exports = {
     run: async(client, message, args) => {
         if (!message.member.hasPermission(['MANAGE_MESSAGES'])) return message.reply('No permission to run this command!')
         const ID = args[1];
-        const chan = args[0];
+        const chan = message.mentions.channels.first()
         if (!ID) return message.reply('Please specify a message ID!');
         if (!chan) return message.reply('Please include the channel the message is in!')
         const mess = args.slice(2).join(" ")
         if (!mess) return message.reply('Please enter a new description for the embed!')
-        const chann = message.guild.channels.cache.get(chan)
         try {
-            const embed = await chann.messages.fetch(ID)
+            const embed = await chan.messages.fetch(ID)
             const data = embed.embeds[0]
 
             const updatedEmbed = new MessageEmbed()
