@@ -5,7 +5,7 @@ const Levels = require('discord-xp')
 const client = new Client({
     ws: { intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_MESSAGE_REACTIONS'] },
     partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER', 'USER']
-})
+}) 
 const mongo = require('mongoose')
 mongo.connect("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/test", {
     useNewUrlParser: true,
