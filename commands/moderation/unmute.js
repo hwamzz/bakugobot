@@ -11,6 +11,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        if (!message.member.hasPermission(['MUTE_MEMBERS'])) return message.channel.send('You do not have permission to use this command!')
         const member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         if (!member) return message.channel.send('Please include a user to unmute!')
 

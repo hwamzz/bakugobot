@@ -10,7 +10,7 @@ const mongo = require('mongoose')
 mongo.connect("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/test", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: true
+    useFindAndModify: false
 }).then(console.log('Connected to mongodb!'))
 
 Levels.setURL("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/test")

@@ -10,6 +10,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        if (!message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send('You do not have permission to use this command!')
         let reaction1 = '📝';
         let reaction2 = '👓';
         let role1 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'changelog')

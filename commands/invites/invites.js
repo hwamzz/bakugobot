@@ -10,15 +10,13 @@ module.exports = {
      */
     run: async(client, message, args) => {
         const user = message.mentions.users.first() || message.author;
-        let inviteCounter = {};
+
+        // IF user id exists in array, add number of users they have invited to current number
 
         message.guild.fetchInvites().then((invites) => {
-            invites.forEach((invite) => {
-            inviteCounter[invite.inviter.id] =
-                (inviteCounter[invite.inviter.id] || 0) + invite.uses;
-            });
+            const inv = invites.find(invite => invite.inviter.id == user.id)
 
-            const c = inviteCounter[user.id] || 0;
+            const c = inv.uses
 
             const embed = new MessageEmbed()
                 .setDescription(`${user.username} has \`${c}\` invites`)

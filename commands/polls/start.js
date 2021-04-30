@@ -11,6 +11,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        if (!message.member.hasPermission(['MANAGE_MESSAGES'])) return message.channel.send('You do not have permission to use this command!')
         Schema.findOne({ Guild: message.guild.id }, async(e, data) => {
             if (!data) return message.channel.send('Please set a poll channel using .setpoll <#channel>');
             const pollQuery = args.slice(2).join(" ")
