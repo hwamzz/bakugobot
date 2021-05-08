@@ -21,7 +21,7 @@ module.exports = {
         if (!message.member.roles.cache.has(role.id)) return message.channel.send('You do not have permission!')
         if (!user) return message.channel.send('Please mention a user to vouch!')
         if (!reason) return message.channel.send('Please include a reason for your vouch!')
-        if (!user.roles.cache.has(role3.id)) return message.channel.send('You cannot vouch a non Middleman!')
+        if (!user.roles.cache.has(role3.id)) return message.channel.send('You cannot vouch a non Middleman!') 
 
 
         Schema.findOne({ Guild: message.guild.id, User: user.id }, async(err, data) => {
