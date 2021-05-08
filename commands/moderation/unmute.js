@@ -23,7 +23,12 @@ module.exports = {
             if (user === -1) return message.reply('Member is not muted!')
             data.Users.splice(user, 1)
             await member.roles.remove(role)
-            message.channel.send(`${member.displayName} was unmuted by ${message.author}`)
+            const embed = new MessageEmbed()
+                .setColor('#FFF000')
+                .setTitle('User unmuted')
+                .setDescription(`${member.user.tag} successfully unmuted by ${message.author}!`)
+
+            message.channel.send(embed)
         })
     }
 }
