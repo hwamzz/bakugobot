@@ -6,11 +6,6 @@ client.on("message", async (message) => {
   if (message.author.bot) return;
   const chan = message.guild.channels.cache.find(ch => ch.name === 'level-up')
 
-  const user = await Levels.fetch(message.author.id, message.guild.id)
-  const data = user.level;
-  const randomAmountOfXp = Math.floor(Math.random() * 29) + 1;
-  const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
-
   const level5 = message.guild.roles.cache.find(r => r.name === "Level 5")
   const level10 = message.guild.roles.cache.find(r => r.name === "Level 10")
   const level15 = message.guild.roles.cache.find(r => r.name === "Level 15")
@@ -22,7 +17,12 @@ client.on("message", async (message) => {
   const level45 = message.guild.roles.cache.find(r => r.name === "Level 45")
   const level50 = message.guild.roles.cache.find(r => r.name === "Level 50")
 
+  const randomAmountOfXp = Math.floor(Math.random() * 29) + 1;
+  const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+
   if (hasLeveledUp) {
+    const user = await Levels.fetch(message.author.id, message.guild.id)
+    const data = user.level;
 
     if (data == 5) {
       message.member.roles.add(level5)
