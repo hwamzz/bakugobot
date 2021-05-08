@@ -3,10 +3,9 @@ const ticketTranscript = require('../models/ticketTranscript')
 
 client.on('message', async(message) => {
     try {
-        const category1 = message.guild.channels.cache.find(ch => ch.type === 'category' && ch.name.toLowerCase() === 'appeals')
-        const category2 = message.guild.channels.cache.find(c => c.type === 'category' && c.name.toLowerCase() === 'tickets')
+        const category = message.guild.channels.cache.find(c => c.type === 'category' && c.name.toLowerCase() === 'tickets')
 
-        if (message.channel.parentID !== category1.id && message.channel.parentID !== category2.id) return;
+        if (message.channel.parentID !== category.id) return;
         ticketTranscript.findOne({ Channel : message.channel.id }, async(err, data) => {
             if(err) throw err;
             if(data) {
