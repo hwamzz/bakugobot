@@ -10,15 +10,14 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if (!message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send('You do not have permission to use this command!')
         const chan = message.mentions.channels.first()
-        const role = message.mentions.roles.first() || '@everyone'
+        const role = message.mentions.roles.first()
         const mess = args.slice(2).join(" ");
         if (!chan) return message.channel.send('Please include the channel you want to send your message in!')
         if (!role) return message.channel.send('Please include a role to ping!')
         if (!mess) return message.channel.send('Please include a message for the embed!')
 
-
+        
         const embed = new MessageEmbed()
             .setTitle(`Bakugo Announcement:`)
             .setColor('#0000FF')

@@ -1,7 +1,7 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'rename',
+    name: 'suffix',
     usage: '<name>',
     description: 'Rename a ticket!',
     /** 
@@ -13,9 +13,10 @@ module.exports = {
         const query = args.slice(0).join(" ")
         if (!query) return message.channel.send('You must include a name to rename the ticket to!')
 
-        const category = message.guild.channels.cache.find(c => c.type === 'category' && c.name.toLowerCase() === 'tickets')
+        const category1 = message.guild.channels.cache.find(ch => ch.type === 'category' && ch.name.toLowerCase() === 'appeals')
+        const category2 = message.guild.channels.cache.find(c => c.type === 'category' && c.name.toLowerCase() === 'tickets')
 
-        if (message.channel.parentID !== category.id) {
+        if (message.channel.parentID !== category1.id && message.channel.parentID !== category2.id) {
             message.channel.send('You can only use this command in a ticket!');   
         }
 

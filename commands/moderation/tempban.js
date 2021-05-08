@@ -26,7 +26,6 @@ module.exports = {
             .setTitle('User banned')
             .setDescription(`${target.user.tag} successfully banned by ${message.author} for ${reason} with a duration of ${duration} days!`)
         
-        target.send(`You have been banned for ${reason}, and you will be unbanned in ${duration} days!`)
         await target.ban({ days: duration, reason: reason })
         message.channel.send(embed)
     }
