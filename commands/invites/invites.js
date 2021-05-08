@@ -12,6 +12,8 @@ module.exports = {
         const user = message.mentions.users.first() || message.author;
         let inviteCounter = {};
 
+        const inv = await client.invites(user.id)
+
         message.guild.fetchInvites().then((invites) => {
             invites.forEach((invite) => {
             inviteCounter[invite.inviter.id] =
@@ -19,9 +21,9 @@ module.exports = {
             });
 
             const c = inviteCounter[user.id] || 0;
-
+            const total = c + inv;
             const embed = new MessageEmbed()
-                .setDescription(`${user.username} has \`${c}\` invites`)
+                .setDescription(`${user.username} has \`${c}\` regular invites, \`${inv}\` bonus invites and \`${total}\` total invites!`)
                 .setColor('ORANGE')
             
             message.channel.send(embed)

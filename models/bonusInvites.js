@@ -1,9 +1,13 @@
 const mongo = require('mongoose')
 
-const Schema = new mongo.Schema({
-    Guild: String,
-    User: String,
-    Bonus: String,
-})
-
-module.exports = mongo.model('invites', Schema)
+module.exports = mongo.model(
+    'invites',
+    new mongo.Schema({
+        id: String,
+        purse: { 
+            type: Number, 
+            default: 0,
+            required: true 
+        }
+    })
+);

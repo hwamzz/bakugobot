@@ -18,6 +18,7 @@ Levels.setURL("mongodb+srv://bakugo:bakugo79@bakugonetwork.nvarp.mongodb.net/tes
 const config = require('./config.json');
 const token = config.token
 const prefix = config.prefix
+const invites = require('./models/bonusInvites')
 module.exports = client;
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -37,6 +38,34 @@ const manager = new GiveawaysManager(client, {
         reaction: '🎉'
     }
 })
+
+client.invites = (id) => new Promise(async ful => {
+    const data = await invites.findOne({ id });
+    if(!data) return ful(0)
+    ful(data.purse)
+})
+client.add = (id, purse) => {
+    invites.findOne({ id }, async(err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.purse += purse;
+        } else {
+            data = new invites({ id, purse })
+        }
+        data.save();
+    })
+}
+client.rmv = (id, purse) => {
+    invites.findOne({ id }, async(err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.purse -= purse;
+        } else {
+            data = new invites({ id, purse: -purse  })
+        }
+        data.save();
+    })
+}
 
 client.giveawaysManager = manager;
 client.login(token)
